@@ -12,3 +12,4 @@ C:\Users\swyou\source\repos\server\ServerCore\obj\Debug\net8.0\refint\ServerCore
 C:\Users\swyou\source\repos\server\ServerCore\obj\Debug\net8.0\ServerCore.pdb
 C:\Users\swyou\source\repos\server\ServerCore\obj\Debug\net8.0\ServerCore.genruntimeconfig.cache
 C:\Users\swyou\source\repos\server\ServerCore\obj\Debug\net8.0\ref\ServerCore.dll
+C:\Users\swyou\source\repos\server\ServerCore\obj\Debug\net8.0\ServerCore.sourcelink.json

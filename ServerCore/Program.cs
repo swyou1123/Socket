@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Net;
-using System.Net.Http.Headers;
+﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
@@ -8,6 +6,7 @@ namespace ServerCore
 {
     class Program
     {
+        static Listener _listener = new Listener();
         static void Main(string[] args)
         {
             string host = Dns.GetHostName();
@@ -15,20 +14,15 @@ namespace ServerCore
             IPAddress ipAddr = ipHost.AddressList[0];
             IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
 
-            Socket listenSocket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
-
             try
             {
-                listenSocket.Bind(endPoint);
-
-                listenSocket.Listen(10);
+                _listener.init(endPoint);
 
                 while (true)
                 {
                     Console.WriteLine("Listening...");
                 
-                    Socket clientSocket = listenSocket.Accept(); // 입장
+                    Socket clientSocket = _listener.Accept();
 
                     byte[] receBuff = new byte[1024];
                     int recvBytes = clientSocket.Receive(receBuff);
