@@ -1,25 +1,56 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ServerCore
 {
-    internal class Listener
+    public class Listener
     {
         Socket _listenSocket;
+        Func<Session> _sessionFactory;
 
-        public void init(IPEndPoint endPoint)
+        public void init(IPEndPoint endPoint, Func<Session> sessionFactory)
         {
             _listenSocket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
+            _sessionFactory += sessionFactory;
             _listenSocket.Bind(endPoint);
 
             _listenSocket.Listen(10);
+
+            SocketAsyncEventArgs args = new SocketAsyncEventArgs();
+            args.Completed += new EventHandler<SocketAsyncEventArgs>(OnAcceptCompleted);
+            RegisterAccept(args);
         }
 
-        public Socket Accept()
+        void RegisterAccept(SocketAsyncEventArgs args)
         {
-            _listenSocket.AcceptAsync();
-            return _listenSocket.Accept();
+            args.AcceptSocket = null;
+
+            bool pending = _listenSocket.AcceptAsync(args);
+            if(pending == false)
+            {
+                OnAcceptCompleted(null, args);
+            }
+        }
+
+        void OnAcceptCompleted(object sender, SocketAsyncEventArgs args)
+        {
+            if(args.SocketError == SocketError.Success)
+            {
+                Session session = _sessionFactory.Invoke();
+                session.Start(args.AcceptSocket);
+                session.OnConnected(args.AcceptSocket.RemoteEndPoint);
+            }
+            else
+            {
+                Console.WriteLine(args.SocketError.ToString());
+            }
+
+            RegisterAccept(args);
         }
     }
 }

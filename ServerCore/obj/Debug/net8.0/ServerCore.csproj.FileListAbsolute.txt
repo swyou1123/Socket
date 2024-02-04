@@ -1,6 +1,4 @@
-C:\Users\swyou\source\repos\server\ServerCore\bin\Debug\net8.0\ServerCore.exe
 C:\Users\swyou\source\repos\server\ServerCore\bin\Debug\net8.0\ServerCore.deps.json
-C:\Users\swyou\source\repos\server\ServerCore\bin\Debug\net8.0\ServerCore.runtimeconfig.json
 C:\Users\swyou\source\repos\server\ServerCore\bin\Debug\net8.0\ServerCore.dll
 C:\Users\swyou\source\repos\server\ServerCore\bin\Debug\net8.0\ServerCore.pdb
 C:\Users\swyou\source\repos\server\ServerCore\obj\Debug\net8.0\ServerCore.GeneratedMSBuildEditorConfig.editorconfig
@@ -10,6 +8,5 @@ C:\Users\swyou\source\repos\server\ServerCore\obj\Debug\net8.0\ServerCore.csproj
 C:\Users\swyou\source\repos\server\ServerCore\obj\Debug\net8.0\ServerCore.dll
 C:\Users\swyou\source\repos\server\ServerCore\obj\Debug\net8.0\refint\ServerCore.dll
 C:\Users\swyou\source\repos\server\ServerCore\obj\Debug\net8.0\ServerCore.pdb
-C:\Users\swyou\source\repos\server\ServerCore\obj\Debug\net8.0\ServerCore.genruntimeconfig.cache
 C:\Users\swyou\source\repos\server\ServerCore\obj\Debug\net8.0\ref\ServerCore.dll
 C:\Users\swyou\source\repos\server\ServerCore\obj\Debug\net8.0\ServerCore.sourcelink.json

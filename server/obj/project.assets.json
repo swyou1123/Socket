@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {}
+    "net8.0": {
+      "ServerCore/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/ServerCore.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ServerCore.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "ServerCore/1.0.0": {
+      "type": "project",
+      "path": "../ServerCore/ServerCore.csproj",
+      "msbuildProject": "../ServerCore/ServerCore.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net8.0": []
+    "net8.0": [
+      "ServerCore >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\swyou\\.nuget\\packages\\": {}
@@ -13,9 +32,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\swyou\\source\\repos\\server\\server\\server.csproj",
-      "projectName": "server",
-      "projectPath": "C:\\Users\\swyou\\source\\repos\\server\\server\\server.csproj",
+      "projectUniqueName": "C:\\Users\\swyou\\source\\repos\\server\\server\\Server.csproj",
+      "projectName": "Server",
+      "projectPath": "C:\\Users\\swyou\\source\\repos\\server\\server\\Server.csproj",
       "packagesPath": "C:\\Users\\swyou\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\swyou\\source\\repos\\server\\server\\obj\\",
       "projectStyle": "PackageReference",
@@ -33,7 +52,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\swyou\\source\\repos\\server\\ServerCore\\ServerCore.csproj": {
+              "projectPath": "C:\\Users\\swyou\\source\\repos\\server\\ServerCore\\ServerCore.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
