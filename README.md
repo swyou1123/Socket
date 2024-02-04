@@ -29,14 +29,86 @@ Type2. 문자열<br>
 ![image](https://github.com/swyou1123/Socket/assets/98148597/2eecf1c4-1549-43a3-9f4b-c3ab23040ed4) <br>
 문자열의 길이를 넣어둘 공간을 추가해서 This.name 을 넣어주고 이후 nameLen 을 넣어주는 방식으로 구현<br><br>
 
-Type2. 리스트<br>
+Type3. 리스트<br>
 스킬에 대한 정보를 여러개 보내야 하는 경우가 있을 수 있다. 구조체 관련으로 보자.<br>
 ![image](https://github.com/swyou1123/Socket/assets/98148597/de27779f-1acc-41f5-a163-da997a5d5e6b) 구조체 내에서 Write 함수를 따로 구현한다.<br>
 
 ![image](https://github.com/swyou1123/Socket/assets/98148597/31ffb748-3149-470e-89f5-3924cbf3e03e) 먼져 스킬에 대한 총 갯수를 입력해주고 <br>
-각각의 스킬을 입력해 주면서 사이즈(count)를 올려준다
+각각의 스킬을 입력해 주면서 사이즈(count)를 올려준다<br><br>
+
+Write 전체코드
+
+```
+public override ArraySegment<byte> Write()
+{
+    ArraySegment<byte> segment = SendBufferHelper.Open(4096);
+
+    ushort count = 0;
+    bool success = true;
+
+    Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count);
+
+    count += sizeof(ushort);
+    success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), this.packetId);
+    count += sizeof(ushort);
+    success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), this.playerId);
+    count += sizeof(long);
+
+    // string
+    ushort nameLen = (ushort)Encoding.Unicode.GetBytes(this.name, 0, this.name.Length, segment.Array, segment.Offset + count + sizeof(ushort));
+    success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), nameLen);
+    count += sizeof(ushort);
+    count += nameLen;
+
+    // list
+    success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), (ushort) skills.Count);
+    count += sizeof(ushort);
+    foreach(SkillInfo skill in skills)
+        success &= skill.Write(s, ref count);
+
+    success &= BitConverter.TryWriteBytes(s, count);
+
+    if (success == false)
+        return null;
+
+    return SendBufferHelper.Close(count);
+}
+```
+
+Read 전체코드
+```
+public override void Read(ArraySegment<byte> segment)
+{
+    ushort count = 0;
+
+    ReadOnlySpan<byte> s = new ReadOnlySpan<byte>(segment.Array, segment.Offset, segment.Count);
+
+    count += sizeof(ushort);
+    count += sizeof(ushort);
+    this.playerId = BitConverter.ToInt64(s.Slice(count, s.Length - count));
+    count += sizeof(long);
+
+    // string
+    ushort nameLen = BitConverter.ToUInt16(s.Slice(count, s.Length - count));
+    count += sizeof(ushort);
+    this.name = Encoding.Unicode.GetString(s.Slice(count, nameLen));
+    count += nameLen;
 
 
+    // list
+    ushort skillLen = BitConverter.ToUInt16(s.Slice(count, s.Length - count));
+    count += sizeof(ushort);
+    skills.Clear();
+    for (int i = 0; i < skillLen; i++)
+    {
+        SkillInfo skill = new SkillInfo();
+        skill.Read(s, ref count);
+        skills.Add(skill);
+    }
+}
+```
+
+패킷 직렬화 작업을 진행했지만 자동화 작업을 통해서 어떠한 데이터가 올지 어떻게 처리해야할지 자동화 처리 부분이 남아있다.
 
 
   
