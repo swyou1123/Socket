@@ -13,7 +13,7 @@
 Type 1. 정수형 or 실수형 <br>
 간단하다 <br><br>![image](https://github.com/swyou1123/Socket/assets/98148597/5fc87f14-4d6c-45de-b474-393e1f5593cb) &nbsp;&nbsp; 플레이어의 정보를 보낼 패킷 클래스를 정의!! <br><br>
 ![image](https://github.com/swyou1123/Socket/assets/98148597/d20cb37b-6fde-48ce-a74a-05931d58be8c)  &nbsp;&nbsp; 어떤 타입의 패킷인지 emum 타입으로 정의 <br><br>
- 
+  
 
 
 ![image](https://github.com/swyou1123/Socket/assets/98148597/00176bb6-4e93-4b2c-a0e9-afa7880f62d0)  &nbsp;&nbsp; 현재 접속할떄 패킷을 보내는 로직에서 해당 그림과 같이 플레이어 아이디 입력한다는 가정 <br><br>
