@@ -8,7 +8,7 @@
 
 첫번쨰로 간단하게 Session페이지를 추가해주고 코드를 분리 시킨후 <br>  
 들어올 수 있는 대부분의 데이터 형을 변환하고 패킷에 넣게 되는 구조부터 파악하자 <br><br>
-
+ 
 # 입력부분
 Type 1. 정수형 or 실수형 <br>
 간단하다 <br><br>![image](https://github.com/swyou1123/Socket/assets/98148597/5fc87f14-4d6c-45de-b474-393e1f5593cb) &nbsp;&nbsp; 플레이어의 정보를 보낼 패킷 클래스를 정의!! <br><br>
